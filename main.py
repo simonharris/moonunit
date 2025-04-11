@@ -9,7 +9,7 @@ client.login(config.API_USER, config.API_PASS)
 phase = pc.get_current_phase()
 ill = pc.get_current_illumination()
 
-message = f"The current moon phase is {phase[0]} with {ill:.1f}% illumination"
+message = f"The current moon phase is {phase} with {ill:.2f}% illumination"
 
 # print(message)
 post = client.send_post(message)
