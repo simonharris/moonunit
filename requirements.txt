@@ -6,6 +6,7 @@ cffi==1.17.1
 click==8.1.8
 cryptography==44.0.2
 dnspython==2.7.0
+ephem==4.2
 exceptiongroup==1.2.2
 h11==0.14.0
 httpcore==1.0.7

@@ -9,8 +9,12 @@ client.login(config.API_USER, config.API_PASS)
 phase = pc.get_current_phase()
 ill = pc.get_current_illumination()
 
-message = f"The current moon phase is {phase} with {ill:.2f}% illumination"
+message = f"The current moon phase is {phase} with {ill:.2f}% illumination."
 
-# print(message)
+if phase == 'full moon':
+    fm_dtl = pc.get_current_fm()
+    message = message + f"\nBecause it is {fm_dtl[0]}, the full moon is called the '{fm_dtl[1]} Moon'."
+
+#  print(message)
 post = client.send_post(message)
 # print(post) 

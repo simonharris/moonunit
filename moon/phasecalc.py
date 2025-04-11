@@ -24,6 +24,25 @@ PHASES = [
     ['new moon', 28.53058770576, 29.53058770576],
 ]
 
+# https://www.rmg.co.uk/stories/topics/what-are-names-full-moons-throughout-year
+FM_NAMES = {
+    '01': 'Wolf',
+    '02': 'Snow',
+    '03': 'Worm',
+    '04': 'Pink',
+    '05': 'Flower',
+    '06': 'Strawberry',
+    '07': 'Buck',
+    '08': 'Sturgeon',
+    '09': 'Full Corn',
+    '10': 'Hunter\'s ',
+    '11': 'Beaver',
+    '12': 'Cold',
+}
+
+# TODO: Blue moon
+# TODO: Harvest moon
+
 
 def get_phase(when: int) -> str:
     """
@@ -62,5 +81,14 @@ def get_illumination(when: datetime) -> float:
     a = ephem.Moon(when)
     return a.moon_phase * 100
 
+
 def get_current_illumination() -> float:
     return get_illumination(datetime.now())
+
+
+def get_fm(when: datetime) -> tuple:
+    return (when.strftime('%B'), FM_NAMES[when.strftime('%m')])
+
+
+def get_current_fm() -> tuple:
+    return get_fm(datetime.now())
