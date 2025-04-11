@@ -6,8 +6,10 @@ from moon import phasecalc as pc
 client = Client(config.API_HOST)
 client.login(config.API_USER, config.API_PASS)
 
-phase = pc.get_current()
-message = f"The current moon phase is: {phase[0]}"
+phase = pc.get_current_phase()
+ill = pc.get_current_illumination()
+
+message = f"The current moon phase is {phase[0]} with {ill:.1f}% illumination"
 
 # print(message)
 post = client.send_post(message)
