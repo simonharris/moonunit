@@ -1,0 +1,6 @@
+
+
+API_HOST = None     # Leave as none unless self-hosting
+API_USER = ''       # You can figure out the rest
+API_PASS = ''       #
+
