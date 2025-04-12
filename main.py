@@ -47,6 +47,11 @@ def do_rise() -> str:
     return message
 
 
+def do_constellation() -> str:
+    const = pc.get_current_constellation()
+    return f"The moon is currently in the constellation {const[0]}. {const[1]}".strip()
+
+
 def send_post(message: str):
     # print(message)
     client = Client(config.API_HOST)
@@ -63,6 +68,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Moon Unit Bot')
     parser.add_argument('-p', '--phase', action='store_true', help='phases of the moon')
     parser.add_argument('-r', '--rise', action='store_true', help='moonrise/set')
+    parser.add_argument('-s', '--stars', action='store_true', help='constellations')
 
     args = parser.parse_args()
    
@@ -73,5 +79,10 @@ if __name__ == '__main__':
 
     if args.rise:
         message = do_rise()
+        # print(message)
+        send_post(message)   
+        
+    if args.stars:
+        message = do_constellation()
         # print(message)
         send_post(message)

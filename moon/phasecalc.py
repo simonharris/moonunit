@@ -3,6 +3,7 @@ import time
 
 import ephem
 
+from .data import CONSTELLATIONS, FM_NAMES, PHASES
 
 CYCLE_DAYS = 29.53058770576
 CYCLE_SECS = CYCLE_DAYS * 24 * 60 * 60
@@ -13,34 +14,6 @@ LOC_LON = '1.4706554'
 
 # Datetime of first new moon in year 2000
 FIRST_NEW = '2000-01-06 18:14'
-
-PHASES = [
-    ['new moon', 0, 1],
-    ['waxing crescent', 1, 6.38264692644],
-    ['first quarter', 6.38264692644, 8.38264692644],
-    ['waxing gibbous', 8.38264692644, 13.76529385288],
-    ['full moon', 13.76529385288, 15.76529385288],
-    ['waning gibbous', 15.76529385288, 21.14794077932],
-    ['last quarter', 21.14794077932, 23.14794077932],
-    ['waning crescent', 23.14794077932, 28.53058770576],
-    ['new moon', 28.53058770576, 29.53058770576],
-]
-
-# https://www.rmg.co.uk/stories/topics/what-are-names-full-moons-throughout-year
-FM_NAMES = {
-    '01': 'Wolf',
-    '02': 'Snow',
-    '03': 'Worm',
-    '04': 'Pink',
-    '05': 'Flower',
-    '06': 'Strawberry',
-    '07': 'Buck',
-    '08': 'Sturgeon',
-    '09': 'Full Corn',
-    '10': 'Hunter\'s ',
-    '11': 'Beaver',
-    '12': 'Cold',
-}
 
 
 def get_phase(when: datetime) -> str:
@@ -115,6 +88,12 @@ def get_current_rise_set() -> tuple:
     return get_rise_set(datetime.now())
 
 
-# >>> m = ephem.Moon('1980/6/1')
-# >>> print(ephem.constellation(m))
-# ('Sgr', 'Sagittarius')
+def get_constellation(when: datetime) -> tuple:
+    moon = ephem.Moon(when)
+    con_name = ephem.constellation(moon)[1]
+
+    return (con_name, CONSTELLATIONS[con_name]['desc'])
+
+
+def get_current_constellation() -> tuple:
+    return get_constellation(datetime.now())
