@@ -1,5 +1,5 @@
 from datetime import datetime
-import time
+import time 
 
 import ephem
 
@@ -7,11 +7,13 @@ import ephem
 CYCLE_DAYS = 29.53058770576
 CYCLE_SECS = CYCLE_DAYS * 24 * 60 * 60
 
+# Bramall Lane - definitely the centre of the country, if not the world
+LOC_LAT = '53.3696389'
+LOC_LON = '1.4706554'
+
 # Datetime of first new moon in year 2000
 FIRST_NEW = '2000-01-06 18:14'
 
-
-# TODO: could be a dict or so for more structure
 PHASES = [
     ['new moon', 0, 1],
     ['waxing crescent', 1, 6.38264692644],
@@ -40,11 +42,8 @@ FM_NAMES = {
     '12': 'Cold',
 }
 
-# TODO: Blue moon
-# TODO: Harvest moon
 
-
-def get_phase(when: int) -> str:
+def get_phase(when: datetime) -> str:
     """
     With thanks to Minkukel Plus:
     https://minkukel.com/en/various/calculating-moon-phase/
@@ -53,7 +52,7 @@ def get_phase(when: int) -> str:
     first_new = time.mktime(time.strptime(FIRST_NEW, '%Y-%m-%d %H:%M'))
 
     # Calculate seconds between date and new moon 2000
-    total_secs = when - first_new
+    total_secs = when.timestamp() - first_new
 
     current_secs = total_secs % CYCLE_SECS
 
@@ -73,12 +72,12 @@ def get_phase(when: int) -> str:
 
 
 def get_current_phase() -> str:
-    return get_phase(time.time())
+    return get_phase(datetime.now())
 
 
 def get_illumination(when: datetime) -> float:
   
-    a = ephem.Moon(when)
+    a = ephem.Moon
     return a.moon_phase * 100
 
 
@@ -92,3 +91,32 @@ def get_fm(when: datetime) -> tuple:
 
 def get_current_fm() -> tuple:
     return get_fm(datetime.now())
+
+
+def get_rise_set(when: datetime):
+
+    whenf = when.strftime('%Y/%m/%d')
+
+    obs = ephem.Observer()
+    obs.date = whenf
+    obs.lat = LOC_LAT
+    obs.lon = LOC_LON
+    moon = ephem.Moon()
+
+    ps = obs.previous_setting(moon) 
+    pr = obs.previous_rising(moon)
+    ns = obs.next_setting(moon)
+    nr = obs.next_rising(moon, start='2025/04/12')
+
+    is_up = False
+
+    return (is_up, ps, pr, ns, nr)
+
+
+# def get_current_rise_set() -> tuple:
+#      return get_rise_set(datetime.now())
+
+
+# >>> m = ephem.Moon('1980/6/1')
+# >>> print(ephem.constellation(m))
+# ('Sgr', 'Sagittarius')
