@@ -95,20 +95,20 @@ def get_rise_set(when: datetime):
 
     whenf = when.strftime('%Y/%m/%d')
 
-    obs = ephem.Observer()
-    obs.date = whenf
-    obs.lat = LOC_LAT
-    obs.lon = LOC_LON
+    bdtbl = ephem.Observer()
+    bdtbl.date = whenf
+    bdtbl.lat = LOC_LAT
+    bdtbl.lon = LOC_LON
     moon = ephem.Moon()
 
-    # ps = obs.previous_setting(moon) 
-    # pr = obs.previous_rising(moon)
-    # ns = obs.next_setting(moon)
-    nr = obs.next_rising(moon, start='2025/04/12')
+    ps = bdtbl.previous_setting(moon, start=when).datetime()
+    pr = bdtbl.previous_rising(moon, start=when).datetime()
+    ns = bdtbl.next_setting(moon, start=when).datetime()
+    nr = bdtbl.next_rising(moon, start=when).datetime() 
 
-    is_up = False
+    is_up = pr > ps
 
-    return (is_up, nr,) #ps, pr, ns, nr)
+    return (is_up, ps, pr, ns, nr)
 
 
 def get_current_rise_set() -> tuple:
