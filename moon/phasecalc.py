@@ -76,9 +76,7 @@ def get_current_phase() -> str:
 
 
 def get_illumination(when: datetime) -> float:
-  
-    a = ephem.Moon
-    return a.moon_phase * 100
+    return ephem.Moon(when).moon_phase * 100
 
 
 def get_current_illumination() -> float:
@@ -103,18 +101,18 @@ def get_rise_set(when: datetime):
     obs.lon = LOC_LON
     moon = ephem.Moon()
 
-    ps = obs.previous_setting(moon) 
-    pr = obs.previous_rising(moon)
-    ns = obs.next_setting(moon)
+    # ps = obs.previous_setting(moon) 
+    # pr = obs.previous_rising(moon)
+    # ns = obs.next_setting(moon)
     nr = obs.next_rising(moon, start='2025/04/12')
 
     is_up = False
 
-    return (is_up, ps, pr, ns, nr)
+    return (is_up, nr,) #ps, pr, ns, nr)
 
 
-# def get_current_rise_set() -> tuple:
-#      return get_rise_set(datetime.now())
+def get_current_rise_set() -> tuple:
+    return get_rise_set(datetime.now())
 
 
 # >>> m = ephem.Moon('1980/6/1')
