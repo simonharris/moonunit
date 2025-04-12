@@ -13,8 +13,8 @@ message = f"The current moon phase is {phase} with {ill:.2f}% illumination."
 
 if phase == 'full moon':
     fm_dtl = pc.get_current_fm()
-    message = message + f"\nBecause it is {fm_dtl[0]}, the full moon is called the '{fm_dtl[1]} Moon'."
+    message = message + f" Because it is {fm_dtl[0]}, the full moon is called the \"{fm_dtl[1]} Moon\"."
 
-#  print(message)
+# print(message)
 post = client.send_post(message)
 # print(post) 
