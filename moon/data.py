@@ -53,7 +53,7 @@ CONSTELLATIONS = {
         'desc': 'Scorpio, also known as Scorpius, is Latin for scorpion, and is literally translated as the "creature with the burning sting".',
     },
     'Ophiuchus': {
-        'desc': 'Considered to be the 13th zodiac sign, Ophiuchus was recorded in the 2nd century by the Greek astronomer Ptolemy, and the name is Latin for "serpent bearer".',
+        'desc': 'Considered to be the 13th sign of the Zodiac, Ophiuchus was recorded in the second century by the Greek astronomer Ptolemy, and the name is Latin for "serpent bearer".',
     },
     'Sagittarius': {
         'desc': '',
@@ -68,3 +68,12 @@ CONSTELLATIONS = {
         'desc': '',
     },
 }
+
+
+FACTS = [
+    "The Moon is moving away from the Earth at a rate of 3.8 cm per year.",
+    "The Moon travels at up to 1.082 kilometers per second. That's just over 2,420 mph.",
+    "The Moon has a mass of 0.07346 * 10²⁴ kg. That's 1.23% the mass of Earth.",
+    "The Moon completes one full orbit of the Earth every 27.3217 days.",
+]
+
