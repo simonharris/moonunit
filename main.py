@@ -1,5 +1,5 @@
 import argparse
-from datetime import date
+from datetime import datetime, timezone
 
 from atproto import Client
 
@@ -28,7 +28,7 @@ def do_phase() -> str:
 def do_rise() -> str:
 
     def nice_date(when):
-        today = (date.today() - when.date()).days == 0
+        today = (datetime.now(timezone.utc).date() - when.date()).days == 0
         nice = when.strftime('%H:%M')
 
         if not today:
@@ -36,6 +36,7 @@ def do_rise() -> str:
 
         return nice
 
+    # print(pc.get_current_rise_set())
 
     moon_up, ps, pr, ns, nr = pc.get_current_rise_set()
 

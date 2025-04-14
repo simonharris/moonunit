@@ -1,5 +1,6 @@
-from datetime import datetime
+from datetime import datetime, timezone
 import time 
+from zoneinfo import ZoneInfo
 
 import ephem
 
@@ -14,6 +15,16 @@ LOC_LON = '1.4706554'
 
 # Datetime of first new moon in year 2000
 FIRST_NEW = '2000-01-06 18:14'
+
+TZ_DISP = ZoneInfo('Europe/London')
+
+
+def _get_dt_utc():
+    """
+    Pyephem speaks UTC, so we work with that throughout, formatting to UK time 
+    for display
+    """
+    return datetime.now(timezone.utc)
 
 
 def get_phase(when: datetime) -> str:
@@ -45,7 +56,7 @@ def get_phase(when: datetime) -> str:
 
 
 def get_current_phase() -> str:
-    return get_phase(datetime.now())
+    return get_phase(_get_dt_utc())
 
 
 def get_illumination(when: datetime) -> float:
@@ -53,7 +64,7 @@ def get_illumination(when: datetime) -> float:
 
 
 def get_current_illumination() -> float:
-    return get_illumination(datetime.now())
+    return get_illumination(_get_dt_utc())
 
 
 def get_fm(when: datetime) -> tuple:
@@ -61,23 +72,21 @@ def get_fm(when: datetime) -> tuple:
 
 
 def get_current_fm() -> tuple:
-    return get_fm(datetime.now())
+    return get_fm(_get_dt_utc())
 
 
 def get_rise_set(when: datetime):
 
-    whenf = when.strftime('%Y/%m/%d')
-
     bdtbl = ephem.Observer()
-    bdtbl.date = whenf
+    bdtbl.date = when
     bdtbl.lat = LOC_LAT
     bdtbl.lon = LOC_LON
     moon = ephem.Moon()
 
-    ps = bdtbl.previous_setting(moon, start=when).datetime()
-    pr = bdtbl.previous_rising(moon, start=when).datetime()
-    ns = bdtbl.next_setting(moon, start=when).datetime()
-    nr = bdtbl.next_rising(moon, start=when).datetime() 
+    ps = ephem.to_timezone(bdtbl.previous_setting(moon, start=when), TZ_DISP)
+    pr = ephem.to_timezone(bdtbl.previous_rising(moon, start=when), TZ_DISP)
+    ns = ephem.to_timezone(bdtbl.next_setting(moon, start=when), TZ_DISP)
+    nr = ephem.to_timezone(bdtbl.next_rising(moon, start=when), TZ_DISP) 
 
     is_up = pr > ps
 
@@ -85,7 +94,7 @@ def get_rise_set(when: datetime):
 
 
 def get_current_rise_set() -> tuple:
-    return get_rise_set(datetime.now())
+    return get_rise_set(_get_dt_utc())
 
 
 def get_constellation(when: datetime) -> tuple:
@@ -96,4 +105,4 @@ def get_constellation(when: datetime) -> tuple:
 
 
 def get_current_constellation() -> tuple:
-    return get_constellation(datetime.now())
+    return get_constellation(_get_dt_utc())

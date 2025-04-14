@@ -22,11 +22,14 @@ class PhaseTest(unittest.TestCase):
         data = pc.get_rise_set(_dt('2025-04-12 23:37:00'))
         self.assertTrue(data[0])
 
+        data = pc.get_rise_set(_dt('2025-04-14 04:30:00'))
+        self.assertTrue(data[0])
+
     # We're basically just testing the library here, but it'll prove the code runs
     def test_constellation(self):
         self.assertEqual(pc.get_constellation(_dt('2025-04-12 13:19:00'))[0], 'Virgo')
         self.assertEqual(pc.get_constellation(_dt('2025-04-15 13:19:00'))[0], 'Libra')
-        self.assertEqual(pc.get_constellation(_dt('2025-04-17 13:19:00'))[0], 'Ophiuchu')
+        self.assertEqual(pc.get_constellation(_dt('2025-04-17 13:19:00'))[0], 'Ophiuchus')
 
 def _dt(dtstr: str) -> dt:
     return dt.strptime(dtstr, '%Y-%m-%d %H:%M:%S')
