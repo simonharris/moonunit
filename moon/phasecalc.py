@@ -1,5 +1,5 @@
 from datetime import datetime, timezone
-import time 
+import time
 from zoneinfo import ZoneInfo
 
 import ephem
@@ -21,7 +21,7 @@ TZ_DISP = ZoneInfo('Europe/London')
 
 def _get_dt_utc():
     """
-    Pyephem speaks UTC, so we work with that throughout, formatting to UK time 
+    Pyephem speaks UTC, so we work with that throughout, formatting to UK time
     for display
     """
     return datetime.now(timezone.utc)
@@ -86,7 +86,7 @@ def get_rise_set(when: datetime):
     ps = ephem.to_timezone(bdtbl.previous_setting(moon, start=when), TZ_DISP)
     pr = ephem.to_timezone(bdtbl.previous_rising(moon, start=when), TZ_DISP)
     ns = ephem.to_timezone(bdtbl.next_setting(moon, start=when), TZ_DISP)
-    nr = ephem.to_timezone(bdtbl.next_rising(moon, start=when), TZ_DISP) 
+    nr = ephem.to_timezone(bdtbl.next_rising(moon, start=when), TZ_DISP)
 
     is_up = pr > ps
 
@@ -100,6 +100,8 @@ def get_current_rise_set() -> tuple:
 def get_constellation(when: datetime) -> tuple:
     moon = ephem.Moon(when)
     con_name = ephem.constellation(moon)[1]
+    con_name = con_name.replace('Scorpius', 'Scorpio')
+    con_name = con_name.replace('Capricornus', 'Capricorn')
 
     return (con_name, CONSTELLATIONS[con_name]['desc'])
 

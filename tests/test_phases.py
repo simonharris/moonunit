@@ -31,7 +31,11 @@ class PhaseTest(unittest.TestCase):
         self.assertEqual(pc.get_constellation(_dt('2025-04-15 13:19:00'))[0], 'Libra')
         self.assertEqual(pc.get_constellation(_dt('2025-04-17 13:19:00'))[0], 'Ophiuchus')
 
+    def test_contellation_issue_12(self):
+        self.assertEqual(pc.get_constellation(_dt('2025-05-14 09:00:00'))[0], 'Scorpio')
+        self.assertEqual(pc.get_constellation(_dt('2025-05-18 09:00:00'))[0], 'Capricorn')
+
+
 def _dt(dtstr: str) -> dt:
     return dt.strptime(dtstr, '%Y-%m-%d %H:%M:%S')
 
-    
