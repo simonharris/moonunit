@@ -1,23 +1,16 @@
 from datetime import datetime, timezone
 import time
-from zoneinfo import ZoneInfo
 
 import ephem
 
-import config # in case we need config.DEBUG
+import config
 from .data import CONSTELLATIONS, FM_NAMES, PHASES
 
 CYCLE_DAYS = 29.53058770576
 CYCLE_SECS = CYCLE_DAYS * 24 * 60 * 60
 
-# Bramall Lane - definitely the centre of the country, if not the world
-LOC_LAT = '53.3696389'
-LOC_LON = '1.4706554'
-
 # Datetime of first new moon in year 2000
 FIRST_NEW = '2000-01-06 18:14'
-
-TZ_DISP = ZoneInfo('Europe/London')
 
 
 def _get_dt_utc() -> datetime:
@@ -80,14 +73,14 @@ def get_rise_set(when: datetime):
 
     bdtbl = ephem.Observer()
     bdtbl.date = when
-    bdtbl.lat = LOC_LAT
-    bdtbl.lon = LOC_LON
+    bdtbl.lat = config.LOC_LAT
+    bdtbl.lon = config.LOC_LON
     moon = ephem.Moon()
 
-    ps = ephem.to_timezone(bdtbl.previous_setting(moon, start=when), TZ_DISP)
-    pr = ephem.to_timezone(bdtbl.previous_rising(moon, start=when), TZ_DISP)
-    ns = ephem.to_timezone(bdtbl.next_setting(moon, start=when), TZ_DISP)
-    nr = ephem.to_timezone(bdtbl.next_rising(moon, start=when), TZ_DISP)
+    ps = ephem.to_timezone(bdtbl.previous_setting(moon, start=when), config.TZ_DISP)
+    pr = ephem.to_timezone(bdtbl.previous_rising(moon, start=when), config.TZ_DISP)
+    ns = ephem.to_timezone(bdtbl.next_setting(moon, start=when), config.TZ_DISP)
+    nr = ephem.to_timezone(bdtbl.next_rising(moon, start=when), config.TZ_DISP)
 
     is_up = pr > ps
 
