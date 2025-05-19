@@ -62,7 +62,7 @@ CONSTELLATIONS = {
         'desc': '',
     },
     'Aquarius': {
-        'desc': '',
+        'desc': 'Despite its name being Latin for "water bearer", Aquarius is one of the three air signs, alongside Gemini and Libra.',
     },
     'Pisces': {
         'desc': '',

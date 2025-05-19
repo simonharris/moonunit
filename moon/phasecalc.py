@@ -4,6 +4,7 @@ from zoneinfo import ZoneInfo
 
 import ephem
 
+import config # in case we need config.DEBUG
 from .data import CONSTELLATIONS, FM_NAMES, PHASES
 
 CYCLE_DAYS = 29.53058770576
@@ -19,7 +20,7 @@ FIRST_NEW = '2000-01-06 18:14'
 TZ_DISP = ZoneInfo('Europe/London')
 
 
-def _get_dt_utc():
+def _get_dt_utc() -> datetime:
     """
     Pyephem speaks UTC, so we work with that throughout, formatting to UK time
     for display

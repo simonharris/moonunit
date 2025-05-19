@@ -7,11 +7,6 @@ import config
 from moon import phasecalc as pc
 
 
-"""
-TODO: Blue moon
-TODO: Harvest moon
-"""
-
 def do_phase() -> str:
     phase = pc.get_current_phase()
     ill = pc.get_current_illumination()
@@ -44,7 +39,7 @@ def do_rise() -> str:
         message = f"The moon is currently above the horizon. It will set at {nice_date(ns)}."
     else:
         message = f"The moon is not currently above the horizon. It will rise at {nice_date(nr)}."
-    
+
     return message
 
 
@@ -54,11 +49,12 @@ def do_constellation() -> str:
 
 
 def send_post(message: str):
-    # print(message)
-    client = Client(config.API_HOST)
-    client.login(config.API_USER, config.API_PASS)
-    post = client.send_post(message)
-    # print(post) 
+    if config.DEBUG:
+        print(message)
+    else:
+        client = Client(config.API_HOST)
+        client.login(config.API_USER, config.API_PASS)
+        _ = client.send_post(message)
 
 
 # main ------------------------------------------------------------------------
@@ -70,9 +66,13 @@ if __name__ == '__main__':
     parser.add_argument('-p', '--phase', action='store_true', help='phases of the moon')
     parser.add_argument('-r', '--rise', action='store_true', help='moonrise/set')
     parser.add_argument('-s', '--stars', action='store_true', help='constellations')
+    parser.add_argument('-d', '--debug', action='store_true', help='debug')
 
     args = parser.parse_args()
-   
+
+    if args.debug:
+        config.DEBUG = True
+
     if args.phase:
         message = do_phase()
         # print(message)
@@ -81,8 +81,8 @@ if __name__ == '__main__':
     if args.rise:
         message = do_rise()
         # print(message)
-        send_post(message)   
-        
+        send_post(message)
+
     if args.stars:
         message = do_constellation()
         # print(message)
