@@ -67,6 +67,9 @@ CONSTELLATIONS = {
     'Pisces': {
         'desc': '',
     },
+    'Auriga': {
+        'desc', "Auriga, the charioteer, is named after the mythological hero Erichthonius, who was said to be the inventor of the chariot. Its bright star Capella symbolises the goat Amaltheia that nursed Zeus.",
+    }
 }
 
 
