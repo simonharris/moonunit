@@ -34,8 +34,11 @@ CONSTELLATIONS = {
     'Taurus': {
         'desc': '',
     },
+    'Auriga': {
+        'desc', "Auriga, the charioteer, is named after the mythological hero Erichthonius, who was said to be the inventor of the chariot. Its brightest star Capella symbolises the goat Amaltheia that nursed Zeus.",
+    },
     'Gemini': {
-        'desc': '',
+        'desc': "Gemini represents the twins Castor and Pollux from Greek mythology, symbolising brotherly love and friendship. Castor is actually a multiple star system, consisting of six stars, while Pollux is a single giant star.",
     },
     'Cancer': {
         'desc': '',
@@ -67,9 +70,6 @@ CONSTELLATIONS = {
     'Pisces': {
         'desc': '',
     },
-    'Auriga': {
-        'desc', "Auriga, the charioteer, is named after the mythological hero Erichthonius, who was said to be the inventor of the chariot. Its bright star Capella symbolises the goat Amaltheia that nursed Zeus.",
-    }
 }
 
 
