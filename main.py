@@ -1,5 +1,8 @@
 import argparse
 from datetime import datetime, timezone
+# temporary fix to quieten a warning somewhere in the dependencies
+import warnings
+warnings.filterwarnings("ignore", category=UserWarning, module='pydantic.*')
 
 from atproto import Client
 
