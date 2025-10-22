@@ -6,4 +6,4 @@ build:
 
 # check it works
 phase:
-	docker run -it moonunit python main.py --phase
+	docker run --rm -it moonunit python main.py --phase
